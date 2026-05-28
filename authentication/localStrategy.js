@@ -1,12 +1,12 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import bcrypt from "bcryptjs";
-import { DbNull } from "@prisma/client/runtime/client";
+import db from "../db/query.js";
 
 passport.use(
   new Strategy(async (email, password, done) => {
     try {
-      // const user = await
+      const user = await db.findUserEmail(email);
 
       if (!user) {
         return done(null, false, {
@@ -41,7 +41,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    // const user=await
+    const user = await db.findUserId(id);
     done(null, user);
   } catch (err) {
     done(err);

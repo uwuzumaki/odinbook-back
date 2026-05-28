@@ -20,4 +20,13 @@ const findUserEmail = async (email) => {
   return user;
 };
 
-export default { register, findUserEmail };
+const findUserId = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  return user;
+};
+
+export default { register, findUserEmail, findUserId };
