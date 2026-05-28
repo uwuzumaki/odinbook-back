@@ -66,6 +66,13 @@ model like {
   @@unique([userId, postId])
 }
 
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+
 enum followStatus {
   PENDING
   ACCEPTED
