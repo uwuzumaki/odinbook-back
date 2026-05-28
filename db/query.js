@@ -11,4 +11,13 @@ const register = async (email, username, password) => {
   return user;
 };
 
-export default { register };
+const findUserEmail = async (email) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  return user;
+};
+
+export default { register, findUserEmail };
