@@ -3,11 +3,16 @@ import bcrypt from "bcryptjs";
 import db from "./db/query.js";
 
 import passport from "passport";
+import "./authentication/localStrategy.js";
+import prismaSession from "./authentication/session.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(prismaSession);
+app.use(passport.session());
 
 app.use("/register", async (req, res) => {
   const body = req.body;
@@ -18,7 +23,9 @@ app.use("/register", async (req, res) => {
   res.json({ message: "works" });
 });
 
-app.post("/login", async (req, res) => {});
+app.post("/login", passport.authenticate("local"), async (req, res) => {
+  res.json({ user: req.user });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
