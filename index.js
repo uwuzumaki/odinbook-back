@@ -4,6 +4,7 @@ import db from "./db/query.js";
 
 import passport from "passport";
 import "./authentication/localStrategy.js";
+import "./authentication/githubStrategy.js";
 import prismaSession from "./authentication/session.js";
 
 const app = express();
@@ -26,6 +27,20 @@ app.use("/register", async (req, res) => {
 app.post("/login", passport.authenticate("local"), async (req, res) => {
   res.json({ user: req.user });
 });
+
+app.get(
+  "/auth/github",
+  passport.authenticate("github", { scope: ["user:email"] }),
+);
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  },
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
