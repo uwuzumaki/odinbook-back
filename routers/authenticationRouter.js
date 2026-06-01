@@ -24,4 +24,6 @@ router.get(
   authenticationController.githubAuthenticate,
 );
 
+router.get("/logout", authenticationController.logout);
+
 export default router;
