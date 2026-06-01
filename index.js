@@ -18,15 +18,7 @@ app.use(prismaSession);
 app.use(passport.session());
 
 app.use("/auth", router.authentication);
-
-app.use("/register", async (req, res) => {
-  const body = req.body;
-
-  const hashedPassword = await bcrypt.hash(body.password, 10);
-  const user = await db.register(body.email, body.username, hashedPassword);
-  console.log(user);
-  res.json({ message: "works" });
-});
+app.use("/register", router.registration);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
