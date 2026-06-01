@@ -1,12 +1,7 @@
 import express from "express";
-import bcrypt from "bcryptjs";
-
-import db from "./db/query.js";
-import router from "./routers/index.js";
-
 import passport from "passport";
 
-import "./authentication/githubStrategy.js";
+import router from "./routers/index.js";
 import prismaSession from "./authentication/session.js";
 
 const app = express();
