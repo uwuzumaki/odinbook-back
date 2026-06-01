@@ -1,9 +1,11 @@
 import express from "express";
 import bcrypt from "bcryptjs";
+
 import db from "./db/query.js";
+import router from "./routers/index.js";
 
 import passport from "passport";
-import "./authentication/localStrategy.js";
+
 import "./authentication/githubStrategy.js";
 import prismaSession from "./authentication/session.js";
 
@@ -15,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(prismaSession);
 app.use(passport.session());
 
+app.use("/auth", router.authentication);
+
 app.use("/register", async (req, res) => {
   const body = req.body;
 
@@ -22,10 +26,6 @@ app.use("/register", async (req, res) => {
   const user = await db.register(body.email, body.username, hashedPassword);
   console.log(user);
   res.json({ message: "works" });
-});
-
-app.post("/login", passport.authenticate("local"), async (req, res) => {
-  res.json({ user: req.user });
 });
 
 app.get(
