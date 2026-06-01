@@ -4,9 +4,9 @@ import bcrypt from "bcryptjs";
 import db from "../db/query.js";
 
 passport.use(
-  new Strategy(async (email, password, done) => {
+  new Strategy(async (user, password, done) => {
     try {
-      const user = await db.findUserEmail(email);
+      const user = await db.findUserId(user);
 
       if (!user) {
         return done(null, false, {
@@ -25,7 +25,6 @@ passport.use(
       }
       const newUser = {
         id: user.id,
-        email: user.email,
         username: user.username,
       };
       return done(null, newUser);
