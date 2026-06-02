@@ -4,5 +4,7 @@ import userController from "../controllers/userController.js";
 const router = Router();
 
 router.get("/home", userController.home);
+router.post("/createPost", userController.createPost);
+router.post("/getUserPosts", userController.getUserPosts);
 
 export default router;

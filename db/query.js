@@ -25,7 +25,6 @@ const findUsername = async (username) => {
       username,
     },
   });
-  console.log(user);
   return user;
 };
 
@@ -59,8 +58,42 @@ const getUser = async (id) => {
       password: true,
       githubId: true,
     },
+    include: {
+      posts: true,
+    },
   });
   return user;
+};
+
+const createPost = async (userId, title, content) => {
+  const post = await prisma.post.create({
+    data: {
+      postAuthorId: userId,
+      title,
+      content,
+    },
+    include: {
+      postAuthor: {
+        omit: {
+          password: true,
+          githubId: true,
+        },
+      },
+    },
+  });
+  return post;
+};
+
+const getUserPosts = async (user) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      postAuthorId: user,
+    },
+    include: {
+      like: true,
+    },
+  });
+  return posts;
 };
 
 export default {
@@ -70,4 +103,6 @@ export default {
   findGithubId,
   registerGithub,
   getUser,
+  createPost,
+  getUserPosts,
 };
