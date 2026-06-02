@@ -19,4 +19,25 @@ const findUserId = async (id) => {
   return user;
 };
 
-export default { register, findUserId };
+const findGithubId = async (githubId) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      githubId,
+    },
+  });
+  return user;
+};
+
+const registerGithub = async (username, githubId, avatarUrl) => {
+  const user = await prisma.user.create({
+    data: {
+      username,
+      displayName: username,
+      githubId,
+      avatarUrl,
+    },
+  });
+  return user;
+};
+
+export default { register, findUserId, findGithubId, registerGithub };

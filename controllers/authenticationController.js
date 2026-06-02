@@ -5,7 +5,6 @@ const localAuthenticate = (req, res) => {
 };
 
 const githubAuthenticate = (req, res) => {
-  // Successful authentication, redirect home.
   res.redirect("http://localhost:5173");
 };
 
