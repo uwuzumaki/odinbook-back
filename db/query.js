@@ -174,6 +174,27 @@ const likePost = async (userId, postId) => {
   return like;
 };
 
+const followUserRequest = async (targetAccount, followerAccount) => {
+  const followRequest = await prisma.follows.create({
+    data: {
+      followingId: followerAccount,
+      followedById: targetAccount,
+      status: "PENDING",
+    },
+  });
+  return followRequest;
+};
+
+const getFollowers = async (userId) => {
+  const followers = await prisma.follows.findMany({
+    where: {
+      status: "ACCEPTED",
+      followingId: userId,
+    },
+  });
+  return followers;
+};
+
 export default {
   register,
   findUserId,
@@ -187,4 +208,6 @@ export default {
   getOnePost,
   createComment,
   likePost,
+  followUserRequest,
+  getFollowers,
 };

@@ -53,6 +53,21 @@ const likePost = async (req, res) => {
   res.json(likePost);
 };
 
+const followUserRequest = async (req, res) => {
+  const follower = req.user.id;
+  const target = req.body.targetId;
+  const followRequest = await db.followUserRequest(target, follower);
+  console.log(followRequest);
+  res.json(followRequest);
+};
+
+const getFollowers = async (req, res) => {
+  const user = req.user.id;
+  const followers = await db.getFollowers(user);
+  console.log(followers);
+  res.json(followers);
+};
+
 export default {
   home,
   index,
@@ -61,4 +76,6 @@ export default {
   getOnePost,
   createComment,
   likePost,
+  followUserRequest,
+  getFollowers,
 };
