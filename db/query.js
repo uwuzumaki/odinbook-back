@@ -164,6 +164,16 @@ const createComment = async (userId, postId, content) => {
   return comment;
 };
 
+const likePost = async (userId, postId) => {
+  const like = await prisma.like.create({
+    data: {
+      userId,
+      postId,
+    },
+  });
+  return like;
+};
+
 export default {
   register,
   findUserId,
@@ -176,4 +186,5 @@ export default {
   getUserPosts,
   getOnePost,
   createComment,
+  likePost,
 };

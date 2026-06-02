@@ -9,5 +9,6 @@ router.post("/createPost", userController.createPost);
 router.post("/getUserPosts", userController.getUserPosts);
 router.post("/getOnePost", userController.getOnePost);
 router.post("/createComment", userController.createComment);
+router.post("/likePost", userController.likePost);
 
 export default router;

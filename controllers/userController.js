@@ -45,6 +45,14 @@ const createComment = async (req, res) => {
   res.json(comment);
 };
 
+const likePost = async (req, res) => {
+  const user = req.user.id;
+  const post = req.body.postId;
+  const likePost = await db.likePost(user, post);
+  console.log(likePost);
+  res.json(likePost);
+};
+
 export default {
   home,
   index,
@@ -52,4 +60,5 @@ export default {
   getUserPosts,
   getOnePost,
   createComment,
+  likePost,
 };
