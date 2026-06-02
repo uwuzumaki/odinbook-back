@@ -28,4 +28,13 @@ const getOnePost = async (req, res) => {
   res.json(post);
 };
 
-export default { home, createPost, getUserPosts, getOnePost };
+const createComment = async (req, res) => {
+  const user = req.user.id;
+  const post = req.body.postId;
+  const content = req.body.content;
+  const comment = await db.createComment(user, post, content);
+  console.log(comment);
+  res.json(comment);
+};
+
+export default { home, createPost, getUserPosts, getOnePost, createComment };

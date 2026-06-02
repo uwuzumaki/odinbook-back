@@ -115,6 +115,17 @@ const getOnePost = async (id) => {
   return post;
 };
 
+const createComment = async (userId, postId, content) => {
+  const comment = await prisma.comment.create({
+    data: {
+      content,
+      userId,
+      postId,
+    },
+  });
+  return comment;
+};
+
 export default {
   register,
   findUserId,
@@ -125,4 +136,5 @@ export default {
   createPost,
   getUserPosts,
   getOnePost,
+  createComment,
 };
