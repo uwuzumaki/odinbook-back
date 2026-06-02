@@ -1,8 +1,16 @@
 import db from "../db/query.js";
+import { prisma } from "../lib/prisma.js";
 
 const home = async (req, res) => {
   const user = await db.getUser(req.user.id);
   res.json(user);
+};
+
+const index = async (req, res) => {
+  const user = req.user.id;
+  const feedPosts = await db.getFeed(user);
+  console.log(feedPosts);
+  res.json(feedPosts);
 };
 
 const createPost = async (req, res) => {
@@ -37,4 +45,11 @@ const createComment = async (req, res) => {
   res.json(comment);
 };
 
-export default { home, createPost, getUserPosts, getOnePost, createComment };
+export default {
+  home,
+  index,
+  createPost,
+  getUserPosts,
+  getOnePost,
+  createComment,
+};

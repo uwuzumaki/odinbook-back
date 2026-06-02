@@ -65,6 +65,44 @@ const getUser = async (id) => {
   return user;
 };
 
+const getFeed = async (id) => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  const feedPosts = await prisma.post.findMany({
+    where: {
+      createdAt: {
+        gte: sevenDaysAgo,
+      },
+      OR: [
+        { postAuthorId: id },
+        {
+          postAuthor: {
+            followedBy: {
+              some: {
+                followingId: id,
+              },
+            },
+          },
+        },
+      ],
+    },
+    include: {
+      postAuthor: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          avatarUrl: true,
+        },
+      },
+      like: true,
+    },
+    orderBy: { createdAt: "desc" },
+  });
+  return feedPosts;
+};
+
 const createPost = async (userId, title, content) => {
   const post = await prisma.post.create({
     data: {
@@ -133,6 +171,7 @@ export default {
   findGithubId,
   registerGithub,
   getUser,
+  getFeed,
   createPost,
   getUserPosts,
   getOnePost,
