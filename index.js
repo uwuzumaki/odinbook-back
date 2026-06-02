@@ -14,6 +14,7 @@ app.use(passport.session());
 
 app.use("/auth", router.authentication);
 app.use("/register", router.registration);
+app.use("/user", router.user);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

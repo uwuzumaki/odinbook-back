@@ -50,10 +50,24 @@ const registerGithub = async (username, githubId, avatarUrl) => {
   return user;
 };
 
+const getUser = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    omit: {
+      password: true,
+      githubId: true,
+    },
+  });
+  return user;
+};
+
 export default {
   register,
   findUserId,
   findUsername,
   findGithubId,
   registerGithub,
+  getUser,
 };

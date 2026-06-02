@@ -27,6 +27,7 @@ passport.use(
         id: user.id,
         username: user.username,
         display: user.displayName,
+        avatar: user.avatarUrl,
       };
       return done(null, newUser);
     } catch (err) {
