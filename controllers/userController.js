@@ -22,4 +22,10 @@ const getUserPosts = async (req, res) => {
   res.json(posts);
 };
 
-export default { home, createPost, getUserPosts };
+const getOnePost = async (req, res) => {
+  const post = await db.getOnePost(req.body.postId);
+  console.log(post);
+  res.json(post);
+};
+
+export default { home, createPost, getUserPosts, getOnePost };

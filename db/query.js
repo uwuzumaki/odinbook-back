@@ -96,6 +96,25 @@ const getUserPosts = async (user) => {
   return posts;
 };
 
+const getOnePost = async (id) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      postAuthor: {
+        select: {
+          username: true,
+          displayName: true,
+        },
+      },
+      comments: true,
+      like: true,
+    },
+  });
+  return post;
+};
+
 export default {
   register,
   findUserId,
@@ -105,4 +124,5 @@ export default {
   getUser,
   createPost,
   getUserPosts,
+  getOnePost,
 };
