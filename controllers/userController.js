@@ -61,6 +61,14 @@ const followUserRequest = async (req, res) => {
   res.json(followRequest);
 };
 
+const acceptFollowerRequest = async (req, res) => {
+  const user = req.user.id;
+  const follower = req.body.followerId;
+  const acceptRequest = await db.acceptFollowerRequest(user, follower);
+  console.log(acceptRequest);
+  res.json(acceptRequest);
+};
+
 const getFollowers = async (req, res) => {
   const user = req.user.id;
   const followers = await db.getFollowers(user);
@@ -77,5 +85,6 @@ export default {
   createComment,
   likePost,
   followUserRequest,
+  acceptFollowerRequest,
   getFollowers,
 };
