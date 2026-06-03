@@ -207,6 +207,20 @@ const getFollowers = async (userId) => {
       status: "ACCEPTED",
       followingId: userId,
     },
+    include: {
+      following: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          avatarUrl: true,
+        },
+      },
+    },
+    omit: {
+      followerId: true,
+      followingId: true,
+    },
   });
   return followers;
 };
