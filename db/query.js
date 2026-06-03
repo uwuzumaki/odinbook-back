@@ -60,6 +60,9 @@ const getUser = async (id) => {
     },
     include: {
       posts: true,
+      likes: true,
+      followers: true,
+      following: true,
     },
   });
   return user;

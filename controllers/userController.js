@@ -1,7 +1,7 @@
 import db from "../db/query.js";
 import { prisma } from "../lib/prisma.js";
 
-const home = async (req, res) => {
+const profile = async (req, res) => {
   const user = await db.getUser(req.user.id);
   res.json(user);
 };
@@ -84,7 +84,7 @@ const getFollowing = async (req, res) => {
 };
 
 export default {
-  home,
+  profile,
   index,
   createPost,
   getUserPosts,

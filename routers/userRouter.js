@@ -3,7 +3,7 @@ import userController from "../controllers/userController.js";
 
 const router = Router();
 
-router.get("/home", userController.home);
+router.get("/home", userController.profile);
 router.get("/index", userController.index);
 router.post("/createPost", userController.createPost);
 router.post("/getUserPosts", userController.getUserPosts);
