@@ -13,5 +13,6 @@ router.post("/likePost", userController.likePost);
 router.post("/followUser", userController.followUserRequest);
 router.post("/acceptFollower", userController.acceptFollowerRequest);
 router.get("/getFollowers", userController.getFollowers);
+router.get("/getFollowing", userController.getFollowing);
 
 export default router;

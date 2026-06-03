@@ -208,7 +208,7 @@ const getFollowers = async (userId) => {
       followingId: userId,
     },
     include: {
-      following: {
+      follower: {
         select: {
           id: true,
           username: true,
@@ -223,6 +223,30 @@ const getFollowers = async (userId) => {
     },
   });
   return followers;
+};
+
+const getFollowing = async (userId) => {
+  const following = await prisma.follows.findMany({
+    where: {
+      status: "ACCEPTED",
+      followerId: userId,
+    },
+    include: {
+      following: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          avatarUrl: true,
+        },
+      },
+    },
+    omit: {
+      followerId: true,
+      followingId: true,
+    },
+  });
+  return following;
 };
 
 export default {
@@ -241,4 +265,5 @@ export default {
   followUserRequest,
   acceptFollowerRequest,
   getFollowers,
+  getFollowing,
 };

@@ -76,6 +76,13 @@ const getFollowers = async (req, res) => {
   res.json(followers);
 };
 
+const getFollowing = async (req, res) => {
+  const user = req.user.id;
+  const following = await db.getFollowing(user);
+  console.log(following);
+  res.json(following);
+};
+
 export default {
   home,
   index,
@@ -87,4 +94,5 @@ export default {
   followUserRequest,
   acceptFollowerRequest,
   getFollowers,
+  getFollowing,
 };
