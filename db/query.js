@@ -5,6 +5,7 @@ const register = async (username, password) => {
     data: {
       username,
       password,
+      displayName: username,
     },
   });
   return user;
