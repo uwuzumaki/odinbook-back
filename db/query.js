@@ -82,7 +82,7 @@ const getFeed = async (id) => {
         { postAuthorId: id },
         {
           postAuthor: {
-            followedBy: {
+            followers: {
               some: {
                 followingId: id,
               },
