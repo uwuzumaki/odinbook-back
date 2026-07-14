@@ -7,6 +7,14 @@ import authenticationController from "../controllers/authenticationController.js
 
 const router = Router();
 
+router.get("/verify", (req, res) => {
+  if (req.isAuthenticated()) {
+    const { password, ...newUser } = req.user;
+    return res.json({ user: newUser });
+  }
+  res.status(401).json({ user: null });
+});
+
 router.post(
   "/local",
   passport.authenticate("local"),
