@@ -101,6 +101,7 @@ const getFeed = async (id) => {
         },
       },
       like: true,
+      comments: true,
     },
     orderBy: { createdAt: "desc" },
   });
