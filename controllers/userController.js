@@ -13,6 +13,11 @@ const index = async (req, res) => {
   res.json(feedPosts);
 };
 
+const findUsers = async (req, res) => {
+  const users = await db.findUser(req.body.username);
+  res.json(users);
+};
+
 const createPost = async (req, res) => {
   console.log(req.user, req.body);
   const post = await db.createPost(
@@ -86,6 +91,7 @@ const getFollowing = async (req, res) => {
 export default {
   profile,
   index,
+  findUsers,
   createPost,
   getUserPosts,
   getOnePost,

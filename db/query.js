@@ -29,6 +29,34 @@ const findUsername = async (username) => {
   return user;
 };
 
+const findUser = async (user) => {
+  const data = await prisma.user.findUnique({
+    where: {
+      username: user,
+    },
+  });
+  const data2 = await prisma.user.findMany({
+    where: {
+      displayName: user,
+    },
+  });
+
+  if (data === null && data2.length === 0) {
+    return null;
+  }
+
+  const merged = [...data2, data];
+  const seenIds = new Set();
+  const users = merged.filter((user) => {
+    if (seenIds.has(user.id)) {
+      return false;
+    }
+    seenIds.add(user.id);
+    return true;
+  });
+  return users.length > 0 ? users : null;
+};
+
 const findGithubId = async (githubId) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -258,6 +286,7 @@ export default {
   register,
   findUserId,
   findUsername,
+  findUser,
   findGithubId,
   registerGithub,
   getUser,

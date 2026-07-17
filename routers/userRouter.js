@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/home", userController.profile);
 router.get("/index", userController.index);
+router.post("/findUsers", userController.findUsers);
 router.post("/createPost", userController.createPost);
 router.post("/getUserPosts", userController.getUserPosts);
 router.post("/getOnePost", userController.getOnePost);
