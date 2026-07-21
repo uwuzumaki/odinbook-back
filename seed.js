@@ -26,7 +26,6 @@ const fakerPost = (user) => {
   const post = {
     userId: user[0].id,
     content: faker.lorem.sentences({ min: 1, max: 3 }),
-    title: faker.lorem.sentence(),
   };
   return post;
 };
@@ -52,7 +51,6 @@ const fakerPost = (user) => {
 //     const post = fakerPost(user);
 //     const createPost = await db.createPost(
 //       post.userId,
-//       post.title,
 //       post.content,
 //     );
 //   }
