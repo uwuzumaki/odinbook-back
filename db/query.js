@@ -103,9 +103,9 @@ const getFeed = async (id) => {
 
   const feedPosts = await prisma.post.findMany({
     where: {
-      createdAt: {
-        gte: sevenDaysAgo,
-      },
+      // createdAt: {
+      //   gte: sevenDaysAgo,
+      // },
       OR: [
         { postAuthorId: id },
         {
@@ -136,11 +136,10 @@ const getFeed = async (id) => {
   return feedPosts;
 };
 
-const createPost = async (userId, title, content) => {
+const createPost = async (userId, content) => {
   const post = await prisma.post.create({
     data: {
       postAuthorId: userId,
-      title,
       content,
     },
     include: {

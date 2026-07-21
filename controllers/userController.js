@@ -19,7 +19,6 @@ const findUsers = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  console.log(req.user, req.body);
   const post = await db.createPost(req.user.id, req.body.content);
   res.json(post);
 };
